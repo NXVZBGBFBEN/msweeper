@@ -130,7 +130,8 @@ GameResult game_loop(GameState *state) {
             case KEY_LEFT:  move_cursor(state, -1, 0); break;
             case KEY_RIGHT: move_cursor(state, 1, 0);  break;
             case '\n':
-                if (state->field[state->cursor_y][state->cursor_x].is_mine) {
+                if (state->field[state->cursor_y][state->cursor_x].mark == CELL_NOT_MARKED &&
+                    state->field[state->cursor_y][state->cursor_x].is_mine) {
                     open_cell_all(state);
                     draw_field(state);
                     return GAME_OVER;
