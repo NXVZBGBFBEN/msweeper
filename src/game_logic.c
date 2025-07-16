@@ -5,7 +5,8 @@
 #include "types.h"
 #include "util.h"
 
-void place_mines(GameState *state, int start_x, int start_y);   /* 初期位置を避けるように地雷を配置する */
+/* 初期位置を避けるように地雷を配置する */
+void place_mines(GameState *state, int start_x, int start_y);
 
 void init_game_state(GameState *state, GameConfig *config) {
     state->field_width = config->width;
@@ -34,13 +35,14 @@ void init_game_state(GameState *state, GameConfig *config) {
 }
 
 void place_mines(GameState *state, int start_x, int start_y) {
-    int mines_to_place = state->mines;  /* 置くべき地雷の数 */
+    int mines_to_place = state->mines; /* 置くべき地雷の数 */
     while (0 < mines_to_place) {
         int x = rand() % state->field_width;
         int y = rand() % state->field_height;
 
-        if ((x == start_x && y == start_y) ||   /* 初期位置 */
-            state->field[y][x].is_mine          /* すでに地雷がある */) {
+        if ((x == start_x && y == start_y) || /* 初期位置 */
+            state->field[y][x].is_mine        /* すでに地雷がある */
+        ) {
             continue;
         }
 
@@ -55,8 +57,9 @@ void place_mines(GameState *state, int start_x, int start_y) {
                 }
                 int nx = x + dx;
                 int ny = y + dy;
-                if (nx < 0 || state->field_width <= nx ||    /* x方向の範囲チェック */
-                    ny < 0 || state->field_height <= ny      /* y方向の範囲チェック */) {
+                if (nx < 0 || state->field_width <= nx || /* x方向の範囲チェック */
+                    ny < 0 || state->field_height <= ny   /* y方向の範囲チェック */
+                ) {
                     continue;
                 }
                 state->field[ny][nx].adjacent_mines++;
@@ -69,8 +72,9 @@ void place_mines(GameState *state, int start_x, int start_y) {
 void move_cursor(GameState *state, int dx, int dy) {
     int nx = state->cursor_x + dx;
     int ny = state->cursor_y + dy;
-    if (0 <= nx && nx < state->field_width &&   /* x方向の範囲チェック */
-        0 <= ny && ny < state->field_height     /* y方向の範囲チェック */) {
+    if (0 <= nx && nx < state->field_width && /* x方向の範囲チェック */
+        0 <= ny && ny < state->field_height   /* y方向の範囲チェック */
+    ) {
         state->cursor_x = nx;
         state->cursor_y = ny;
     }
@@ -110,8 +114,7 @@ void open_cell(GameState *state, int x, int y) {
                 if (dx == 0 && dy == 0) continue;
                 int nx = x + dx;
                 int ny = y + dy;
-                if (0 <= nx && nx < state->field_width &&
-                    0 <= ny && ny < state->field_height) {
+                if (0 <= nx && nx < state->field_width && 0 <= ny && ny < state->field_height) {
                     open_cell(state, nx, ny);
                 }
             }

@@ -6,4 +6,4 @@
 /* 盤面を描画する */
 void draw_field(GameState *state);
 
-#endif  /* MSWEEPER_UI_H */
+#endif /* MSWEEPER_UI_H */

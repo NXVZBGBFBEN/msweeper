@@ -1,19 +1,18 @@
 #include <errno.h>
 #include <getopt.h>
 #include <limits.h>
+#include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
 
-#include <ncurses.h>
-
-#include "types.h"
 #include "game_logic.h"
+#include "types.h"
 #include "ui.h"
 #include "util.h"
 
-GameState setup(int argc, char *argv[]);   /* プログラム本体の初期化 */
-void run(GameState *state);     /* ゲームの開始 */
-void cleanup(GameState *state); /* プログラムの終了処理を行う */
+GameState setup(int argc, char *argv[]); /* プログラム本体の初期化 */
+void run(GameState *state);              /* ゲームの開始 */
+void cleanup(GameState *state);          /* プログラムの終了処理を行う */
 int validate_argument_value(const char *optarg);
 void print_usage(void);
 void parse_arguments(GameConfig *config, int argc, char *argv[]);
@@ -39,7 +38,7 @@ GameState setup(int argc, char *argv[]) {
 
     GameState state;
     init_game_state(&state, &config);
-    
+
     initscr();
     curs_set(0);
     cbreak();
@@ -96,7 +95,8 @@ void parse_arguments(GameConfig *config, int argc, char *argv[]) {
     }
 
     if (config->mines <= 0 ||                           /* 地雷の数が負 */
-        config->width * config->height <= config->mines /* 盤面より地雷が多い */) {
+        config->width * config->height <= config->mines /* 盤面より地雷が多い */
+    ) {
         die("Invalid number of mines: must be between 1 and (width x height - 1)");
     }
 }
@@ -107,10 +107,11 @@ int validate_argument_value(const char *optarg) {
     char *endptr;
     long value = strtol(optarg, &endptr, 10);
 
-    if (errno != 0 ||       /* strtol内部で失敗 */
-        *endptr != '\0' ||  /* 数値以外が含まれている */
-        value <= 0 ||       /* 負の値 */
-        INT_MAX < value     /* intの範囲より大きい */) {
+    if (errno != 0 ||      /* strtol内部で失敗 */
+        *endptr != '\0' || /* 数値以外が含まれている */
+        value <= 0 ||      /* 負の値 */
+        INT_MAX < value    /* intの範囲より大きい */
+    ) {
         print_usage();
         die("Failed to parse command-line arguments");
     }
@@ -118,17 +119,23 @@ int validate_argument_value(const char *optarg) {
     return (int)value;
 }
 
-void print_usage(void) {
-    fprintf(stderr, "Usage: msweeper [-w width] [-h height] [-m mines]\n");
-}
+void print_usage(void) { fprintf(stderr, "Usage: msweeper [-w width] [-h height] [-m mines]\n"); }
 
 GameResult game_loop(GameState *state) {
     while (true) {
         switch (getch()) {
-            case KEY_UP:    move_cursor(state, 0, -1); break;
-            case KEY_DOWN:  move_cursor(state, 0, 1);  break;
-            case KEY_LEFT:  move_cursor(state, -1, 0); break;
-            case KEY_RIGHT: move_cursor(state, 1, 0);  break;
+            case KEY_UP:
+                move_cursor(state, 0, -1);
+                break;
+            case KEY_DOWN:
+                move_cursor(state, 0, 1);
+                break;
+            case KEY_LEFT:
+                move_cursor(state, -1, 0);
+                break;
+            case KEY_RIGHT:
+                move_cursor(state, 1, 0);
+                break;
             case '\n':
                 if (state->field[state->cursor_y][state->cursor_x].mark == CELL_NOT_MARKED &&
                     state->field[state->cursor_y][state->cursor_x].is_mine) {

@@ -10,10 +10,10 @@ typedef struct {
 } GameConfig;
 
 typedef enum {
-    CELL_NOT_MARKED,    /* マークされていない */
-    CELL_OPENED,        /* 開かれている */
-    CELL_FLAGGED,       /* 旗が立てられている */
-    CELL_QUESTIONED,    /* ？が立てられている */
+    CELL_NOT_MARKED, /* マークされていない */
+    CELL_OPENED,     /* 開かれている */
+    CELL_FLAGGED,    /* 旗が立てられている */
+    CELL_QUESTIONED, /* ？が立てられている */
 } CellMark;
 
 typedef struct {
@@ -29,14 +29,14 @@ typedef enum {
 } GameResult;
 
 typedef struct {
-    int field_width;        /* 盤面の幅 */
-    int field_height;       /* 盤面の高さ */
-    int mines;              /* 総地雷数 */
-    int remaining_cells;    /* 開くべき残りセル数 */
-    bool is_initialized;    /* セルが何も開かれていないか？ */
-    int cursor_x;   /* カーソル位置 (x) */
-    int cursor_y;   /* カーソル位置 (y) */
-    CellState **field;  /* 盤面 */
+    int field_width;     /* 盤面の幅 */
+    int field_height;    /* 盤面の高さ */
+    int mines;           /* 総地雷数 */
+    int remaining_cells; /* 開くべき残りセル数 */
+    bool is_initialized; /* セルが何も開かれていないか？ */
+    int cursor_x;        /* カーソル位置 (x) */
+    int cursor_y;        /* カーソル位置 (y) */
+    CellState **field;   /* 盤面 */
 } GameState;
 
-#endif  /* MSWEEPER_TYPES_H */
+#endif /* MSWEEPER_TYPES_H */

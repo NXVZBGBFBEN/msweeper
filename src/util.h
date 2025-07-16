@@ -9,4 +9,4 @@
 /* エラーを出力してプログラムを終了する */
 void die(const char *error_message);
 
-#endif  /* MSWEEPER_UTIL_H */
+#endif /* MSWEEPER_UTIL_H */

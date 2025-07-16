@@ -18,4 +18,4 @@ void open_cell(GameState *state, int x, int y);
 /* セルを全て開ける */
 void open_cell_all(GameState *state);
 
-#endif  /* MSWEEPER_GAME_LOGIC_H */
+#endif /* MSWEEPER_GAME_LOGIC_H */

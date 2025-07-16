@@ -15,7 +15,7 @@ void draw_field(GameState *state) {
             char symbol = cell_to_symbol(cell);
 
             if (y == state->cursor_y && x == state->cursor_x) { /* カーソル位置の描画 */
-                attron(A_REVERSE);  /* 色を反転させる */
+                attron(A_REVERSE);                              /* 色を反転させる */
                 mvaddch(y + 1, x + 1, symbol);
                 attroff(A_REVERSE);
             } else {
